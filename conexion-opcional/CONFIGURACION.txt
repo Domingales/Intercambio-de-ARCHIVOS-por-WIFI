@@ -1,0 +1,64 @@
+AYUDA DE CONEXIÓN 2.1 — CLOUDFLARE WORKERS + D1
+============================================
+El servicio coordina el mismo PIN en ambos dispositivos. Nunca recibe archivos.
+Esta carpeta conserva su nombre anterior, pero el servicio es necesario en el
+nuevo flujo automático. No hay que configurarlo en cada uso: se hace una sola vez.
+
+SI YA USABAS LA VERSIÓN 2.0
+1. Ejecuta el nuevo schema.sql en la consola de la MISMA base D1.
+   Sus sentencias CREATE IF NOT EXISTS añaden pin_sessions sin borrar tablas.
+2. Sustituye el código del MISMO Worker por worker.js y despliega.
+3. Conserva el binding DB, ALLOWED_ORIGIN y la URL existentes.
+4. Actualiza la página en GitHub con los archivos del ZIP de cambios.
+No hace falta cambiar config.js si ya tenía la URL correcta.
+
+SI TODAVÍA NO TIENES EL SERVICIO
+Usa Workers FREE y D1 FREE. No selecciones plan de pago ni introduzcas tarjeta.
+Si tu cuenta exige contratar algo, no hagas esa contratación para este proyecto.
+
+1. En Cloudflare, Workers & Pages > Create application, crea un Worker Hello World
+   llamado intercambio-conexion.
+2. En D1 SQL database crea una base intercambio-conexion. Abre su consola y ejecuta
+   todas las sentencias de schema.sql, de una en una si hace falta.
+3. En el Worker, Bindings > Add binding > D1 database: Variable name DB, con esa base.
+4. En Settings > Variables and Secrets, añade ALLOWED_ORIGIN como texto.
+   Pon el origen de tu GitHub Pages, por ejemplo https://domingo.github.io
+   Sin la ruta del repositorio y sin barra final.
+5. En el editor del Worker sustituye el ejemplo por TODO worker.js. Guarda y despliega.
+6. Añade un Cron Trigger */20 * * * * para limpiar registros caducados.
+7. Copia la URL HTTPS del Worker a signalUrl en config.js y sube config.js a GitHub.
+   También puedes ponerla en Ajustes de la app en ambos navegadores.
+
+ALTERNATIVA WRANGLER
+Si ya usabas wrangler.toml, consérvalo; ejecuta desde esta carpeta:
+  npx wrangler d1 execute intercambio-conexion --remote --file=schema.sql
+  npx wrangler deploy
+Para empezar de cero, usa wrangler.example.toml, inicia sesión, crea la base,
+copia su database_id real y ajusta ALLOWED_ORIGIN antes de ejecutar esos comandos.
+No incluyas credenciales, tokens de Cloudflare ni contraseñas en config.js.
+
+DATOS Y LÍMITES
+- Sesiones de 3 minutos, con máximo dos participantes.
+- El PIN no se guarda en claro en D1; se usa un hash ligado al origen de la página.
+- Cada participante utiliza además una clave aleatoria de 256 bits. Solo se almacena
+  su hash. Consultar una sesión requiere esa clave, no basta su identificador.
+- El PIN corto autoriza el encuentro; no debe tratarse como una contraseña fuerte.
+- 12 intentos de PIN por IP y ventana de 5 minutos; 120 solicitudes/minuto/IP.
+- Los PIN consumidos quedan reservados hasta caducar para impedir un tercer participante.
+- Al conectar/cancelar se borran los datos de oferta/respuesta de la sesión.
+- La limpieza periódica y la creación de nuevos emparejamientos borran sesiones caducadas.
+- No se guarda la IP en claro en las tablas de límites. CORS solo admite tu origen.
+- No se usa la IP pública como prueba de misma wifi ni como condición de emparejamiento.
+- No hay endpoint de archivos; las peticiones de señalización tienen límite de 22 KB.
+- Las cuotas gratuitas y las copias operativas dependen de Cloudflare.
+
+IMPORTANTE
+Actualizar solo los archivos de GitHub no actualiza el Worker ni crea la tabla nueva.
+Una visita directa al Worker puede responder Origen no permitido: pruébalo desde la app.
+Las páginas 2.0 deben recargarse después de actualizar el servicio a 2.1.
+
+DOCUMENTACIÓN OFICIAL
+https://developers.cloudflare.com/d1/get-started/
+https://developers.cloudflare.com/workers/configuration/environment-variables/
+https://developers.cloudflare.com/workers/platform/pricing/
+https://developers.cloudflare.com/d1/platform/pricing/

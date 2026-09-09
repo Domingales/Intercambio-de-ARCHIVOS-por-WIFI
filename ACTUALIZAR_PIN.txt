@@ -1,0 +1,69 @@
+ACTUALIZACIÓN 2.1 — CONEXIÓN CON PIN DE SEIS CIFRAS
+================================================
+Este ZIP contiene SOLO los archivos nuevos o modificados respecto a la versión
+IntercambioWiFi_GitHub_v2.0.zip. No es una aplicación completa independiente.
+
+1. COPIAR LOS CAMBIOS
+Extrae el ZIP y copia el CONTENIDO de IntercambioWiFi_GitHub sobre la carpeta
+que ya tenías, respetando las subcarpetas y sustituyendo los archivos coincidentes.
+No hace falta borrar los archivos anteriores de QR: la página ya no los carga.
+config.js NO se incluye ni se modifica, para conservar la dirección que tengas.
+
+2. ACTUALIZAR LA AYUDA DE CONEXIÓN (CLOUDFLARE)
+Si ya la configuraste:
+a) En la consola de tu base D1, ejecuta conexion-opcional/schema.sql actualizado.
+   Añade la tabla pin_sessions; no borra la base ni las tablas anteriores.
+b) En tu Worker, sustituye el código por conexion-opcional/worker.js y despliega.
+c) Conserva el binding DB, ALLOWED_ORIGIN y la URL del Worker que ya tenías.
+   No necesitas crear otra cuenta, otra base ni otro Worker.
+
+Si todavía NO la configuraste:
+Sigue conexion-opcional/CONFIGURACION.txt. Esta ayuda es necesaria para coordinar
+los PIN automáticamente. Subir solo el HTML a GitHub no sustituye este paso.
+Se mantiene la propuesta de Workers Free y D1 Free. No actives ningún plan de pago
+ni introduzcas tarjeta. El uso está sujeto a las cuotas gratuitas de tu cuenta.
+
+3. PUBLICAR LA PÁGINA ACTUALIZADA
+Sube los archivos modificados al mismo repositorio de GitHub, en sus carpetas.
+index.html debe seguir en la raíz. No cambies la configuración de GitHub Pages.
+Espera a que termine la publicación y recarga la página en ambos dispositivos.
+Los recursos modificados llevan una referencia de versión para evitar caché antigua.
+
+4. USO HABITUAL
+- Abre el MISMO enlace de GitHub Pages en el ordenador y en el móvil.
+- Conecta ambos a la misma red wifi (PC por cable al mismo router también sirve).
+- Escribe un nombre para cada dispositivo.
+- Elige un PIN de seis números y escribe exactamente el MISMO en los dos.
+- Pulsa CONECTAR en ambos equipos. Ese gesto da tu consentimiento de conexión.
+- Cuando aparezca Conectado con..., ya puedes enviar archivos.
+No hay QR, códigos largos ni una segunda pantalla de autorización del dispositivo.
+Cada archivo entrante sigue pidiendo aceptación para decidir si lo recibes.
+
+PIN Y AVISOS
+- Admite ceros iniciales: 001234 es un PIN válido.
+- La búsqueda dura como máximo 3 minutos desde que conecta el primer dispositivo.
+- Solo se emparejan dos dispositivos por sesión.
+- Un PIN ocupado, utilizado o cancelado puede quedar reservado hasta que caduque;
+  para reconectar enseguida, elige otro PIN en los dos equipos.
+- Usa un PIN que solo conozcáis los dos. No es una contraseña permanente.
+- Se limitan a 12 los intentos de PIN por dirección de Internet y ventana de 5 min.
+- No se guarda el PIN en el almacenamiento del navegador. Se conserva el nombre/ID.
+
+COMPROBACIÓN DE LA RED
+Una página HTML no puede leer con certeza el nombre de la wifi de ambos equipos.
+Esta versión intenta la conexión directa y avisa si no es posible. No muestra una
+falsa confirmación de «misma wifi» ni da por hecho que cualquier fallo sea otra red.
+No usa la IP pública para decidir si es la misma wifi: puede variar entre dispositivos
+por IPv6, VPN u otras configuraciones. El PIN localiza la pareja, WebRTC intenta unirla.
+Los archivos siguen viajando directamente entre los navegadores, cifrados.
+
+PRUEBA RÁPIDA
+1. Introduce el mismo PIN en ambos y comprueba que conectan sin otra confirmación.
+2. Envía una foto del móvil al PC y un PDF del PC al móvil.
+3. Prueba otro PIN distinto en cada equipo: deben quedarse esperando y caducar,
+   sin conectarse entre sí. Puedes cancelar antes.
+4. Prueba Desconectar y vuelve a conectar usando un PIN nuevo.
+5. Si no conecta, comprueba Internet, el mismo PIN, wifi, VPN, router y firewall.
+
+Se han pasado 17 pruebas automáticas, incluido el flujo de las dos pantallas con
+simulación de navegador/WebRTC. Falta probar esta versión en tus equipos reales.

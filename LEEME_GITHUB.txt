@@ -1,0 +1,59 @@
+INTERCAMBIO WIFI WEB 2.1 — PIN DE SEIS CIFRAS
+==========================================
+Para actualizar desde 2.0, lee ACTUALIZAR_PIN.txt.
+La app se abre desde GitHub Pages y no necesita Python, BAT ni APK.
+
+PUBLICACIÓN
+Mantén index.html en la raíz del repositorio junto a app.js, style.css, transfer.js,
+connection.js y config.js. Settings > Pages > main > / (root).
+La página utiliza HTML, CSS y JavaScript. No hay que compilar nada para publicarla.
+
+CONFIGURACIÓN INICIAL
+La ayuda de conexión debe estar desplegada y configurada una sola vez.
+Consulta conexion-opcional/CONFIGURACION.txt. Aunque se conserva ese nombre de
+carpeta por compatibilidad con la versión anterior, el servicio es NECESARIO para
+el emparejamiento automático por PIN. No transmite los archivos.
+config.js contiene su URL en signalUrl. También puedes introducirla en Ajustes.
+Un valor guardado en Ajustes tiene prioridad sobre config.js.
+
+CONEXIÓN HABITUAL
+1. Abre la página en el ordenador y en el móvil, conectados a la misma red.
+2. Escribe un nombre y el mismo PIN de seis cifras en los dos dispositivos.
+3. Pulsa CONECTAR en ambos. Así autorizas el emparejamiento.
+4. Aparece Conectado con el nombre del otro equipo.
+5. Enviar archivos > seleccionar > Solicitar envío. El receptor acepta cada archivo.
+
+La búsqueda dura tres minutos y acepta dos dispositivos. Si el PIN está ocupado o
+ya se usó, escribe otro en los dos equipos. No hay QR ni códigos largos.
+
+ARCHIVOS
+Se mantienen los envíos simultáneos en ambas direcciones, las colas, cancelaciones
+y la comprobación SHA-256 por bloque. Se admiten las extensiones que el explorador
+permita seleccionar; no se ejecutan archivos dentro de la aplicación.
+En navegadores compatibles, se guarda directamente en el destino elegido al aceptar.
+En los demás, se intenta almacenamiento temporal y después Guardar en Descargas.
+Comprueba el archivo y pulsa Ya está guardado para liberar la copia temporal.
+Si no hay almacenamiento temporal disponible, el límite acumulado en memoria es
+64 MiB. La cuota libre del navegador puede imponer otros límites. No se garantiza
+un tamaño ilimitado. El navegador gestiona la carpeta final y los duplicados.
+
+LÍMITES DE FUNCIONAMIENTO
+Mantén las dos páginas abiertas y la pantalla del móvil encendida.
+Se necesita Internet para abrir GitHub Pages y coordinar el encuentro por PIN.
+Los archivos se transfieren directamente mediante WebRTC cifrado, sin TURN ni STUN.
+Una red de invitados, VPN, firewall o política del navegador puede impedir conectar.
+La app no puede leer el nombre de la wifi ni asegurar que ambos equipos usan la misma;
+comprueba si pueden comunicarse y muestra un aviso si falla.
+No hay trabajo en segundo plano ni reanudación después de cerrar.
+El nombre y la ID identifican el navegador, no el hardware.
+La aceptación de conexión se realiza de nuevo mediante PIN en cada sesión.
+El historial corresponde a esta conexión. Guarda todos los recibidos antes de cerrar.
+
+VALIDACIÓN
+PRUEBAS.txt explica lo comprobado y lo pendiente en navegadores reales.
+Las pruebas se ejecutan con npm test (Node 24); Node no es necesario para usar la app.
+
+REFERENCIAS
+https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages
+https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation
+https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_data_channels

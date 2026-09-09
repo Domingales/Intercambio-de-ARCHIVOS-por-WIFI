@@ -1,0 +1,35 @@
+INTERCAMBIO WIFI WEB 2.1 — VALIDACIÓN
+==================================
+Resultado: 17 pruebas automáticas correctas (Node 24).
+
+NUEVO FLUJO
+- Se ejecuta el código de las dos pantallas con DOM/WebRTC simulados y Worker
+  conectado a SQLite en memoria. Mismo PIN -> nombres visibles y envío habilitado,
+  sin QR ni segunda pantalla de consentimiento.
+- PIN de seis cifras, incluidos ceros iniciales.
+- PIN distintos generan sesiones separadas.
+- Entradas simultáneas eligen un primer y un segundo participante.
+- Reintentos del mismo participante conservan su sesión.
+- Un tercer dispositivo queda bloqueado.
+- Respuesta solo permitida al segundo participante y lectura protegida por clave.
+- Cancelación, PIN consumido, caducidad y rechazo de claves antiguas.
+- Entradas inválidas, origen no permitido y límite de intentos.
+- No se exige igualdad de IP pública ni se declara que esta pruebe la misma wifi.
+
+REGRESIONES
+- Binarios, archivos vacíos, colas y envíos simultáneos.
+- Comprobación de integridad, rechazo de bloques dañados, aceptación de archivos.
+- Cancelaciones antes y durante la transferencia.
+- Escritura por bloques y confirmación de guardado.
+- Codificación de la señalización. La prueba anterior de las librerías QR también
+  sigue pasando, aunque la interfaz nueva ya no las carga ni las utiliza.
+- Sintaxis y referencias HTML/JavaScript verificadas.
+
+LÍMITES
+No es una prueba con navegadores, WebRTC, OPFS o wifi reales.
+No se ha desplegado el servicio en tu cuenta ni publicado en tu GitHub.
+Falta probar la actualización en tu Windows y tu Doogee siguiendo ACTUALIZAR_PIN.txt.
+
+REPETIR
+Desde el proyecto completo actualizado, con Node 24:
+  npm test
