@@ -1,0 +1,112 @@
+INTERCAMBIO WIFI WEB 2.0 — GITHUB PAGES
+=====================================
+Esta versión usa HTML, CSS y JavaScript. No necesita Python, BAT ni APK.
+Los dos dispositivos abren el mismo enlace HTTPS en su navegador.
+No mezcles estos archivos con la versión anterior para Windows.
+
+PUBLICAR EN GITHUB
+1. Extrae todo el ZIP.
+2. Crea un repositorio, por ejemplo intercambio-wifi, o usa uno dedicado a esta app.
+3. Sube EL CONTENIDO de la carpeta IntercambioWiFi_GitHub al repositorio.
+   index.html debe quedar en la raíz, no dentro de otra carpeta adicional.
+4. Archivos necesarios para la página:
+   index.html, style.css, app.js, transfer.js, connection.js, config.js y vendor/.
+   Puedes subir también las guías, tests/ y conexion-opcional/; no tienen secretos.
+5. En el repositorio: Settings > Pages > Build and deployment.
+   Source: Deploy from a branch. Branch: main. Folder: / (root). Save.
+6. Espera a que GitHub complete la publicación y abre el enlace que muestre Pages.
+   Su forma habitual es https://TU_USUARIO.github.io/intercambio-wifi/
+7. Abre ese MISMO enlace en el ordenador y en el teléfono, en la misma red wifi.
+   No uses la página de código del repositorio ni abras index.html desde el disco.
+
+Tienes dos métodos de conexión. El manual funciona sin configurar nada más.
+
+MÉTODO 1 — SOLO GITHUB, SIN OTRO SERVICIO
+A. En el ordenador, pulsa Crear invitación.
+B. En el móvil, abre la app y pulsa Escanear QR. Permite la cámara y lee el QR.
+   También puedes usar la cámara normal para abrir la invitación y pulsar Usar código.
+C. El móvil genera una RESPUESTA, con otro QR y un código para copiar.
+D. Vuelve a la PÁGINA ORIGINAL del ordenador. Pulsa Escanear QR y usa su cámara
+   para leer la respuesta, o pega el código de respuesta y pulsa Usar código.
+   NO abras la respuesta en otra pestaña: se perdería la conexión original.
+E. Compara el código de verificación que aparece en ambos equipos.
+F. Si coincide, pulsa Aceptar este dispositivo en LOS DOS.
+G. Enviar archivos > seleccionarlos > Solicitar envío. El otro acepta cada uno.
+
+IMPORTANTE SI TU ORDENADOR NO TIENE CÁMARA
+La conexión manual necesita llevar el código de respuesta del móvil al ordenador.
+GitHub no hace este intercambio por sí solo. Necesitas copiar el código mediante
+un método que ya tengas disponible. El código es largo y no está pensado para
+teclearlo a mano. Para evitar esta dificultad, utiliza el método 2.
+
+MÉTODO 2 — SALA, UN SOLO QR (CONFIGURACIÓN ADICIONAL)
+Es el método más cómodo para tu ordenador y tu Doogee:
+A. Configura la ayuda de conexión siguiendo conexion-opcional/CONFIGURACION.txt.
+B. Pon su dirección en config.js y vuelve a subir ese archivo a GitHub.
+C. Abre la app en ambos equipos. En uno pulsa Crear invitación.
+D. El otro escanea el QR, o escribe el código de sala de 16 caracteres.
+E. La respuesta se intercambia automáticamente. Compara y acepta la conexión.
+
+La ayuda de conexión se ejecuta en TU cuenta de Cloudflare. El código está incluido,
+pero no está desplegado ni conectado a una cuenta. No depende de un servidor público
+prestado. Workers y D1 tienen plan gratuito con cuotas; la guía explica cómo usarlo.
+No actives ningún plan de pago ni introduzcas tarjeta para este proyecto.
+
+ARCHIVOS Y GUARDADO
+- Los archivos viajan por WebRTC directamente entre ambos navegadores, cifrados.
+- La app no configura servidores TURN ni STUN. Si la red impide conexión directa,
+  mostrará un error; no enviará los archivos a un servicio de retransmisión.
+- Los dos dispositivos necesitan aceptar la conexión y cada archivo entrante.
+- Se pueden enviar archivos en ambas direcciones, incluso simultáneamente.
+- Cada dirección procesa su cola de uno en uno. Máximo 100 archivos en cola.
+- Bloques de 64 KiB, divididos en mensajes de 16 KiB. SHA-256 por cada bloque,
+  comprobación de orden y de tamaño. No se calcula un hash global del archivo.
+- Donde el navegador ofrece selector de guardado, al aceptar eliges destino y
+  se escribe por bloques. Si eliges un archivo existente, revisa el aviso del navegador.
+- En los demás casos se intenta almacenamiento temporal del navegador (OPFS).
+  Después pulsa Guardar en Descargas. Comprueba la descarga y confirma Ya está guardado.
+  Esa confirmación libera la copia temporal y desactiva su descarga posterior.
+- Sin almacenamiento temporal, el modo en memoria admite 64 MiB acumulados.
+  Guarda y libera recibidos antes de continuar; otros navegadores pueden admitir más.
+- No se promete tamaño ilimitado: importan navegador, espacio disponible y cuota.
+- Los archivos recibidos antes de guardarlos pueden perderse al cerrar o recargar.
+  Un cierre abrupto también puede dejar temporales del navegador. Puedes borrarlos
+  desde los ajustes de datos del sitio, cuando ya no tengas nada pendiente.
+- El navegador controla la ubicación final y los nombres duplicados.
+
+CONEXIÓN Y PRIVACIDAD
+- Hace falta Internet para cargar GitHub Pages y para el método por sala.
+- Después de conectar, los archivos no pasan por GitHub ni por Cloudflare.
+- En el modo sala, Cloudflare recibe los datos técnicos de conexión WebRTC.
+  Las invitaciones caducan a los 10 minutos; se eliminan al conectar o con la limpieza.
+- No hay registro de cuentas dentro de la app. La ID aleatoria y el nombre se guardan
+  en el navegador; no identifican el hardware y pueden cambiar si borras sus datos.
+- El emparejamiento y la aceptación se realizan de nuevo en cada conexión.
+- Usa la misma red. La app no puede consultar el nombre de tu wifi para comprobarlo.
+- Mantén ambas páginas activas y el móvil con la pantalla encendida.
+- No hay funcionamiento en segundo plano ni reanudación tras desconectar.
+- La wifi de invitados, la VPN o el firewall pueden impedir WebRTC local.
+- Usa navegadores actualizados. No se garantiza que todos los navegadores sean compatibles.
+- No compartas códigos de invitación y comprueba que el código de verificación coincide.
+- Todo el JavaScript y las librerías de QR están incluidos. No se cargan desde un CDN.
+
+PRIMERA PRUEBA RECOMENDADA
+1. Conecta el ordenador y el móvil por el método elegido.
+2. Envía una foto del móvil al ordenador. Acepta y abre el archivo guardado.
+3. Envía un PDF del ordenador al móvil. Guarda, abre y confirma la recepción.
+4. Prueba un ZIP, varios archivos y una cancelación.
+5. Solo después prueba un vídeo grande, comprobando el espacio del navegador.
+
+VALIDACIÓN REALIZADA
+Consulta PRUEBAS.txt. El protocolo está comprobado con canales simulados y SQLite.
+No se ha publicado en tu GitHub ni probado en tus dispositivos reales.
+
+FUENTES TÉCNICAS
+GitHub Pages (alojamiento de HTML, CSS y JavaScript):
+https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages
+Publicación de una página:
+https://docs.github.com/articles/creating-project-pages-manually
+WebRTC y cifrado de canales de datos:
+https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_data_channels
+Selector de guardado, compatibilidad limitada:
+https://developer.mozilla.org/en-US/docs/Web/API/Window/showSaveFilePicker

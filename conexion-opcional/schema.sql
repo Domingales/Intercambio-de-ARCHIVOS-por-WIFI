@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS rooms (
+ id TEXT PRIMARY KEY,
+ owner TEXT NOT NULL,
+ offer TEXT NOT NULL,
+ answer TEXT,
+ expires INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS rooms_expiry ON rooms(expires);
+CREATE TABLE IF NOT EXISTS rates (
+ key TEXT PRIMARY KEY,
+ count INTEGER NOT NULL,
+ expires INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS rates_expiry ON rates(expires);

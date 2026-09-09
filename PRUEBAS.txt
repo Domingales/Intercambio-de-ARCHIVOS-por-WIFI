@@ -1,0 +1,38 @@
+INTERCAMBIO WIFI WEB 2.0 — PRUEBAS
+================================
+Fecha: 9 de septiembre de 2026.
+Resultado: 12 pruebas automáticas correctas.
+
+Se ha comprobado:
+- Binarios, archivos vacíos y cola de envíos.
+- Igualdad byte a byte del contenido recibido.
+- Transferencias simultáneas en ambos sentidos.
+- Aceptación de la conexión necesaria antes de enviar.
+- Rechazo y cancelación de ofertas pendientes.
+- Cancelación durante el envío sin cerrar la conexión simulada.
+- Detección de corrupción de bloques, sin completar el archivo dañado.
+- SHA-256 contrastado con una implementación independiente.
+- Escritura por bloques con un selector/archivo de destino simulado.
+- Confirmación explícita de guardado y liberación del temporal en memoria.
+- Códigos manuales: compresión, URL, caducidad y rechazo de datos incorrectos.
+- QR generado y decodificado por las dos librerías incluidas.
+- Salas del Worker: creación, respuesta única, secreto de propietario, borrado,
+  caducidad, origen permitido, entradas inválidas y límite de creación por IP.
+- Sintaxis y referencias locales de HTML y módulos JavaScript.
+
+LÍMITES DE ESTA VALIDACIÓN
+Las transferencias usan una simulación del canal de datos en Node.
+El Worker usa un adaptador de prueba con SQLite real en memoria, no Cloudflare.
+No se ha probado una conexión ICE/WebRTC en navegadores reales ni en tu wifi.
+No se han probado la cámara real, OPFS real, descargas móviles ni la apariencia
+visual en un navegador. No se ha desplegado en GitHub ni en Cloudflare.
+No se han medido rendimiento ni límites de archivos de varios GB.
+
+PRUEBA PENDIENTE EN TUS EQUIPOS
+Sigue la prueba de foto, PDF y ZIP de LEEME_GITHUB.txt. La compatibilidad real
+con tu Windows y tu Doogee se confirma con esa prueba.
+
+REPETIR LAS PRUEBAS (SOLO DESARROLLO)
+Con Node 24, desde la carpeta del proyecto:
+  npm test
+No hay dependencias que instalar. Node no es necesario para usar la página.
